@@ -4,7 +4,14 @@ import MatrixInput from "../MatrixInput";
 export default function Matrix({ matrix, onDimensionChange, onValuesChange }) {
   const handleDimensionChange = (e) => {
     const { id, value } = e.target;
-    onDimensionChange(matrix.id, id, parseInt(value));
+    const intValue = value === "" ? "" : parseInt(value);
+
+    if (intValue !== "" && (intValue < 1 || intValue > 3)) {
+      alert("Rows and columns must be between 1 and 3.");
+      onDimensionChange(matrix.id, id, 2); // Mengatur nilai default jika tidak sesuai
+    } else {
+      onDimensionChange(matrix.id, id, intValue);
+    }
   };
 
   return (
