@@ -8,7 +8,7 @@ export default function Matrix({ matrix, onDimensionChange, onValuesChange }) {
 
     if (intValue !== "" && (intValue < 1 || intValue > 3)) {
       alert("Rows and columns must be between 1 and 3.");
-      onDimensionChange(matrix.id, id, 2); // Mengatur nilai default jika tidak sesuai
+      onDimensionChange(matrix.id, id, 2);
     } else {
       onDimensionChange(matrix.id, id, intValue);
     }
