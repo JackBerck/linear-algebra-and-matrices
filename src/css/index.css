@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.section-padding-x {
+  @apply px-4 md:px-8;
+}
+
+.title-font-size {
+  @apply text-3xl md:text-4xl lg:text-5xl;
+}
