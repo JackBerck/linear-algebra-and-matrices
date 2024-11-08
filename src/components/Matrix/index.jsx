@@ -12,7 +12,7 @@ export default function Matrix({ matrix, onDimensionChange, onDelete }) {
   };
 
   return (
-    <div className="bg-slate-600 py-2 px-4 rounded-md relative">
+    <div className="bg-slate-600 py-2 px-4 rounded-md relative max-w-64">
       <div className="absolute -top-2 -right-2" onClick={handleDelete}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ export default function Matrix({ matrix, onDimensionChange, onDelete }) {
       <h2 className="sub-title-font-size font-semibold text-light-base">
         Matriks {matrix.id}
       </h2>
-      <div className="max-w-64 flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4">
         <input
           type="number"
           id="rows"
