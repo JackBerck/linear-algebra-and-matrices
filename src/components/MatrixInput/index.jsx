@@ -88,11 +88,11 @@ export default function MatrixInput({ rows, columns, onValuesChange }) {
     <>
       <div className="matrix-inputs">{renderMatrixInputs()}</div>
       <div className="flex flex-wrap gap-2">
-        <MatrixButton text="Clear" onClick={clearMatrix} />
-        <MatrixButton text="All 0" onClick={fillMatrixWithZeros} />
-        <MatrixButton text="All 1" onClick={fillMatrixWithOnes} />
-        <MatrixButton text="Random" onClick={randomizeMatrix} />
-        <MatrixButton text="Identity" onClick={setIdentityMatrix} />
+        <MatrixButton text="Bershikan" onClick={clearMatrix} />
+        <MatrixButton text="Semua 0" onClick={fillMatrixWithZeros} />
+        <MatrixButton text="Semua 1" onClick={fillMatrixWithOnes} />
+        <MatrixButton text="Acak" onClick={randomizeMatrix} />
+        <MatrixButton text="Identitas" onClick={setIdentityMatrix} />
       </div>
     </>
   );
