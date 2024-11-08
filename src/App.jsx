@@ -43,13 +43,14 @@ function App() {
               onDelete={handleDeleteMatrix}
             />
           ))}
-          <button
-            className="bg-blue-base text-light-base p-2 rounded-md self-end"
-            onClick={handleAddMatrix}
-            disabled={matrices.length >= 4}
-          >
-            Tambah Matriks
-          </button>
+          {matrices.length < 4 && (
+            <button
+              className="bg-blue-base text-light-base p-2 rounded-md self-end"
+              onClick={handleAddMatrix}
+            >
+              Tambah Matriks
+            </button>
+          )}
         </div>
       </section>
     </>
