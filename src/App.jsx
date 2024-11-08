@@ -132,21 +132,23 @@ function App() {
         <div className="">
           <h1 className="title-font-size font-bold mb-4">Hasil</h1>
           <div className="bg-slate-600 py-2 px-4 rounded-md relative max-w-72">
-            <h2 className="sub-title-font-size font-semibold text-light-base">
-              Matriks 3
-            </h2>
             {result ? (
               result.map((row, i) => (
-                <div key={i} className="flex gap-4 mb-4">
-                  {row.map((val, j) => (
-                    <input
-                      key={`${i}-${j}`}
-                      type="number"
-                      value={val}
-                      readOnly
-                    />
-                  ))}
-                </div>
+                <>
+                  <h2 className="sub-title-font-size font-semibold text-light-base">
+                    Matriks 3
+                  </h2>
+                  <div key={i} className="flex gap-4 mb-4">
+                    {row.map((val, j) => (
+                      <input
+                        key={`${i}-${j}`}
+                        type="number"
+                        value={val}
+                        readOnly
+                      />
+                    ))}
+                  </div>
+                </>
               ))
             ) : (
               <h2 className="sub-title-font-size font-semibold text-light-base">
