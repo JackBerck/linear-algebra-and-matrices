@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MatrixButton from "../MatrixButton";
 
-export default function MatrixInput({ rows, columns }) {
+export default function MatrixInput({ rows, columns, onValuesChange }) {
   const [matrixValues, setMatrixValues] = useState(() =>
     Array.from({ length: rows }, () => Array(columns).fill(0))
   );
@@ -11,6 +11,18 @@ export default function MatrixInput({ rows, columns }) {
       Array.from({ length: rows }, () => Array(columns).fill(0))
     );
   }, [rows, columns]);
+
+  useEffect(() => {
+    onValuesChange(matrixValues);
+  }, [matrixValues]);
+
+  const handleInputChange = (row, col, value) => {
+    setMatrixValues((prevMatrix) => {
+      const newMatrix = [...prevMatrix];
+      newMatrix[row][col] = value === "" ? 0 : parseFloat(value);
+      return newMatrix;
+    });
+  };
 
   const renderMatrixInputs = () => {
     if (!matrixValues || matrixValues.length === 0) return null;
@@ -42,17 +54,6 @@ export default function MatrixInput({ rows, columns }) {
       );
     }
     return inputs;
-  };
-
-  const handleInputChange = (row, col, value) => {
-    setMatrixValues((prevMatrix) => {
-      const newMatrix = [...prevMatrix];
-      if (!newMatrix[row]) {
-        newMatrix[row] = Array(columns).fill(0);
-      }
-      newMatrix[row][col] = value === "" ? "" : parseFloat(value);
-      return newMatrix;
-    });
   };
 
   const clearMatrix = () => {
