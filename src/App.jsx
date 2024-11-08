@@ -41,7 +41,10 @@ function App() {
   };
 
   const addMatrices = () => {
-    if (!canCalculate()) return;
+    if (!canCalculate()) {
+      alert("Dimensi matriks tidak sesuai untuk penjumlahan!");
+      return;
+    }
 
     const result = matrices[0].values.map((row, i) =>
       row.map((val, j) => val + matrices[1].values[i][j])
@@ -50,7 +53,10 @@ function App() {
   };
 
   const subtractMatrices = () => {
-    if (!canCalculate()) return;
+    if (!canCalculate()) {
+      alert("Dimensi matriks tidak sesuai untuk pengurangan!");
+      return;
+    }
 
     const result = matrices[0].values.map((row, i) =>
       row.map((val, j) => val - matrices[1].values[i][j])
@@ -92,7 +98,7 @@ function App() {
 
   return (
     <>
-      <section className="section-padding-x mt-8 mb-8 md:mt-24 md:mb-16 p-8 max-w-screen-lg shadow-sm bg-light-base text-dark-base container">
+      <section className="section-padding-x mt-8 mb-8 md:mt-16 md:mb-8 p-8 max-w-screen-lg shadow-sm bg-light-base text-dark-base container">
         <h1 className="title-font-size font-bold mb-4">Kalkulator Matriks</h1>
         <div className="flex flex-wrap gap-8 mb-8">
           {matrices.map((matrix) => (

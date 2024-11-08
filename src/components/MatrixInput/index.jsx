@@ -84,6 +84,103 @@ export default function MatrixInput({ rows, columns, onValuesChange }) {
     setMatrixValues(identityMatrix);
   };
 
+  const transposeMatrix = () => {
+    if (!canCalculate()) {
+      alert("Dimensi matriks tidak sesuai untuk transpose!");
+      return;
+    }
+    const transposedMatrix = Array.from({ length: columns }, (_, j) =>
+      Array.from({ length: rows }, (_, i) => matrixValues[i][j])
+    );
+    setMatrixValues(transposedMatrix);
+  };
+
+  const calculateDeterminant = (matrix) => {
+    const n = matrix.length;
+    if (n === 1) return matrix[0][0];
+    if (n === 2)
+      return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+
+    let determinant = 0;
+    for (let i = 0; i < n; i++) {
+      const subMatrix = matrix
+        .slice(1)
+        .map((row) => row.filter((_, j) => j !== i));
+      determinant +=
+        matrix[0][i] * calculateDeterminant(subMatrix) * (i % 2 === 0 ? 1 : -1);
+    }
+    return determinant;
+  };
+
+  const determinantMatrix = () => {
+    if (!canCalculate()) {
+      alert("Dimensi matriks tidak sesuai untuk determinan!");
+      return;
+    }
+
+    const determinant = calculateDeterminant(matrixValues);
+    alert(`Determinant: ${determinant}`);
+  };
+
+  const inverseMatrix = () => {
+    if (!canCalculate()) {
+      alert("Dimensi matriks tidak sesuai untuk inverse!");
+      return;
+    }
+
+    const n = matrixValues.length;
+    const identityMatrix = Array.from({ length: n }, (_, i) =>
+      Array.from({ length: n }, (_, j) => (i === j ? 1 : 0))
+    );
+
+    const augmentedMatrix = matrixValues.map((row, i) => [
+      ...row,
+      ...identityMatrix[i],
+    ]);
+
+    for (let i = 0; i < n; i++) {
+      let maxRow = i;
+      for (let k = i + 1; k < n; k++) {
+        if (
+          Math.abs(augmentedMatrix[k][i]) > Math.abs(augmentedMatrix[maxRow][i])
+        ) {
+          maxRow = k;
+        }
+      }
+
+      if (augmentedMatrix[maxRow][i] === 0) {
+        alert("Matriks tidak memiliki invers!");
+        return;
+      }
+
+      [augmentedMatrix[i], augmentedMatrix[maxRow]] = [
+        augmentedMatrix[maxRow],
+        augmentedMatrix[i],
+      ];
+
+      const divisor = augmentedMatrix[i][i];
+      for (let j = 0; j < 2 * n; j++) {
+        augmentedMatrix[i][j] /= divisor;
+      }
+
+      for (let k = 0; k < n; k++) {
+        if (k !== i) {
+          const factor = augmentedMatrix[k][i];
+          for (let j = 0; j < 2 * n; j++) {
+            augmentedMatrix[k][j] -= factor * augmentedMatrix[i][j];
+          }
+        }
+      }
+    }
+
+    const inverse = augmentedMatrix.map((row) => row.slice(n));
+    setMatrixValues(inverse);
+  };
+
+  const canCalculate = () => {
+    return rows === columns;
+  };
+
   return (
     <>
       <div className="matrix-inputs">{renderMatrixInputs()}</div>
@@ -93,6 +190,9 @@ export default function MatrixInput({ rows, columns, onValuesChange }) {
         <MatrixButton text="Semua 1" onClick={fillMatrixWithOnes} />
         <MatrixButton text="Acak" onClick={randomizeMatrix} />
         <MatrixButton text="Identitas" onClick={setIdentityMatrix} />
+        <MatrixButton text="Transpose" onClick={transposeMatrix} />
+        <MatrixButton text="Determinan" onClick={determinantMatrix} />
+        <MatrixButton text="Inverse" onClick={inverseMatrix} />
       </div>
     </>
   );
